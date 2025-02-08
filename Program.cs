@@ -70,10 +70,16 @@ static void Produtos(string stringConnection)
                 }
                 break;
             case 3:
-                Console.WriteLine("Atualizar Produtos");
+                using (var connection = new SqlConnection(stringConnection))
+                {
+                    cadastroProd.AlterarProduto(connection);
+                }
                 break;
             case 4:
-                Console.WriteLine("Deletar Produtos");
+                using (var connection = new SqlConnection(stringConnection))
+                {
+                    cadastroProd.DeletarProduto(connection);
+                }
                 break;
             default:
                 Console.WriteLine("Opção invalida");

@@ -6,7 +6,7 @@ namespace SistemaDeVendasConsole.Services;
 
 public class CadastrarProdutos
 {
-    public string cadastrarProduto(SqlConnection connection)
+    public void cadastrarProduto(SqlConnection connection)
     {
         var produto = new Produtos();
         produto.Codigo = Guid.NewGuid().ToString();
@@ -26,8 +26,7 @@ public class CadastrarProdutos
             createdAt = produto.CreatedAt
         });
         
-        return @"Cadastro realizado com sucesso!
-                 Linhas Afetadas" + rows;
+        if (rows > 0) Console.WriteLine("Produto Criado com sucesso!");
     }
 
     public void ListarProdutos(SqlConnection connection)
@@ -39,5 +38,41 @@ public class CadastrarProdutos
         {
             Console.WriteLine($"{item.Codigo} - {item.Nome} - R$ {item.Valor} - {item.CreatedAt}");
         }
+    }
+
+    public void AlterarProduto(SqlConnection connection)
+    {
+        var produto = new Produtos();
+        Console.Write("Digite o codigo do produto a alterar: ");
+        produto.Codigo = Console.ReadLine();
+        Console.Write("Digite o novo nome do produto: ");
+        produto.Nome = Console.ReadLine();
+        Console.Write("Digite o novo valor do produto: R$ ");
+        produto.Valor = float.Parse(Console.ReadLine());
+        
+        var sqlCommand = "UPDATE [Produtos] SET [Nome] = @Nome, [Valor] = @Valor WHERE [Codigo]=@Codigo";
+        var rows = connection.Execute(sqlCommand, new
+        {
+            Codigo = produto.Codigo,
+            Nome = produto.Nome,
+            Valor = produto.Valor
+        });
+        
+        if (rows > 0) Console.WriteLine("Produto alterado com sucesso!");
+    }
+
+    public void DeletarProduto(SqlConnection connection)
+    {
+        var produto = new Produtos();
+        Console.WriteLine("Digite o codigo do produto a excluir: ");
+        produto.Codigo = Console.ReadLine();
+
+        var sqlCommand = "Delete from Produtos WHERE [Codigo]=@Codigo";
+        var rows = connection.Execute(sqlCommand, new
+        {
+            Codigo = produto.Codigo
+        });
+        
+        if (rows > 0) Console.WriteLine("Produto excluido com sucesso!");
     }
 }
