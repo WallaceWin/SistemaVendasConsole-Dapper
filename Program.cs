@@ -31,10 +31,13 @@ static void Main()
         switch (opcao)
         {
             case 1:
-                var controller = new ProdutosController();
-                controller.Produtos(stringConnection);
+                var produtosController = new ProdutosController();
+                produtosController.Produtos(stringConnection);
                 break;
-            case 2: Console.WriteLine("Clientes"); break;
+            case 2: 
+                var clienteController = new ClienteController();
+                clienteController.Clientes(stringConnection);
+                break;
             case 3: Console.WriteLine("Vendas"); break;
             default: Console.WriteLine("Opção invalida"); break;
         }
