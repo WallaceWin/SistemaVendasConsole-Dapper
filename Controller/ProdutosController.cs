@@ -17,7 +17,7 @@ public class ProdutosController
             [2] Listar Produtos
             [3] Atualizar Produtos
             [4] Deletar Produtos
-");
+            ");
             var opcao = int.Parse(Console.ReadLine());
             var cadastroProd = new CadastrarProdutos();
 

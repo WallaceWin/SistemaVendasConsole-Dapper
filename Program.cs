@@ -38,7 +38,10 @@ static void Main()
                 var clienteController = new ClienteController();
                 clienteController.Clientes(stringConnection);
                 break;
-            case 3: Console.WriteLine("Vendas"); break;
+            case 3: 
+                var vendasController = new VendasController();
+                vendasController.Vendas(stringConnection);
+                break;
             default: Console.WriteLine("Opção invalida"); break;
         }
     }
